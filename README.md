@@ -54,7 +54,9 @@ weather_api: YOUR_OPENWEATHERMAP_API_KEY
 ## Caching
 
 Weather data is cached for **30 minutes** per city and state combination using Rails' built-in caching mechanism. This reduces the number of API calls and improves performance.
-![Home Page](placeholder-image-1.png)
+![Cache Hit](CacheHit.png)
+
+![No Cache Hit](NoCacheHit.png)
 
 
 ---
