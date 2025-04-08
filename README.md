@@ -21,7 +21,7 @@ WeatherApp is a simple Ruby on Rails application that provides weather informati
 
 1. Clone the repository:
    ```bash
-   git clone <repository-url>
+   git clone git@github.com:riniculous/WeatherApp.git
    cd WeatherApp
    ```
 
@@ -49,7 +49,7 @@ WeatherApp is a simple Ruby on Rails application that provides weather informati
 
 ## API Keys
 
-The application uses an API key for OpenWeatherMap, which is securely stored using Rails credentials. Attached in the email is my master.key for this project. Copy master.key file to /config directory
+The application uses an API key for OpenWeatherMap, which is securely encrypted stored using Rails credentials. Attached in the email is my master.key for this project. Copy master.key file to /config directory
 
 OR you can setup your OWN api key which you can obtain from OpenWeatherMap And added to the App with:
 ```RAILS_ENV=development EDITOR="nano" rails credentials:edit```
@@ -69,8 +69,10 @@ Weather data is cached for **30 minutes** per Zipcode using Rails' built-in cach
 
 ## Dependencies
 
-- **Ruby on Rails**: The web framework used to build the application.
+- **Ruby on Rails**: The web framework used to build the application. 
+- **Ruby on Rails**: The web framework used to build the application. 
 - **Geocoder Gem**: Converts city and state into geographic coordinates.
+- **ZipCode Gem**: Converts city and state into geographic coordinates.
 - **OpenWeatherMap API**: Provides weather data.
 
 ---
