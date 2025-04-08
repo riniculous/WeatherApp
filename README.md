@@ -1,6 +1,6 @@
 # WeatherApp
 
-WeatherApp is a simple Ruby on Rails application that provides weather information for a given location. It uses data from OpenWeatherMap and geolocation services from the Geocoder gem. The application caches weather data for each city and state combination for 30 minutes to improve performance and reduce API calls.
+WeatherApp is a simple Ruby on Rails application that provides weather information for a given location. It uses data from OpenWeatherMap and geolocation services from the Geocoder gem. The application caches weather data for each Zip Code for 30 minutes to improve performance and reduce API calls.
 
 ---
 
@@ -8,8 +8,12 @@ WeatherApp is a simple Ruby on Rails application that provides weather informati
 
 - Fetches **current weather information** from [OpenWeatherMap](https://openweathermap.org/).
 - Uses **Geocoder gem** to convert city and state into geographic coordinates.
-- Caches weather data for **30 minutes** per city and state to optimize API usage.
+- Uses **ZipCodes gem** to search by US Zip codes, Because 5 digit Zip codes are not Globally unique.
+- Caches weather data for **30 minutes** per BY ZipCode to optimize API usage. 
 - Displays weather details such as temperature, humidity, wind speed, and more.
+- Encrypts API in repo for security
+- Weather fetching is encapsulated in a Databaseless Model to keep Controller DRY
+- Model and Requests are tested using Rspec
 
 ---
 
@@ -29,31 +33,33 @@ WeatherApp is a simple Ruby on Rails application that provides weather informati
 3. Install Gems
   ```bundle install```
 
-4. Start the development server:
+4. Copy master.key (was emailed) file to /config
+
+5. Start the development server:
    ```bash
    bin/dev
    ```
 
-5. Run tests:
+6. Run tests:
    ```bash
-   rails test
+   bundle exec rspec
    ```
 
 ---
 
 ## API Keys
 
-The application uses an API key for OpenWeatherMap, which is securely stored using Rails credentials. Ensure you have the API key set up in your Rails credentials file:
+The application uses an API key for OpenWeatherMap, which is securely stored using Rails credentials. Attached in the email is my master.key for this project. Copy master.key file to /config directory
 
-```yaml
-weather_api: YOUR_OPENWEATHERMAP_API_KEY
-```
+OR you can setup your OWN api key which you can obtain from OpenWeatherMap And added to the App with:
+```RAILS_ENV=development EDITOR="nano" rails credentials:edit```
+set variable named  `weather_api`
 
 ---
 
 ## Caching
 
-Weather data is cached for **30 minutes** per city and state combination using Rails' built-in caching mechanism. This reduces the number of API calls and improves performance.
+Weather data is cached for **30 minutes** per Zipcode using Rails' built-in caching mechanism. This reduces the number of API calls and improves performance. Uses ZipCodes gem to search by US Zip codes only, Because 5 digit Zip codes are not Globally unique. Searching by City and State sets cache for first zipcode returned for that city, NOT all Zipcodes for that city.
 ![Cache Hit](CacheHit.png)
 
 ![No Cache Hit](NoCacheHit.png)
@@ -74,7 +80,7 @@ Weather data is cached for **30 minutes** per city and state combination using R
 To ensure everything is working correctly, run the test suite:
 
 ```bash
-rails test
+bundle exec rspec
 ```
 
 This will execute all the tests for the application.
