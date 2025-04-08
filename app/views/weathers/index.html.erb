@@ -1,0 +1,52 @@
+<div style="text-align: center; margin-top: 20px;">
+  <h1>Weather Information</h1>
+  <p>Enter a location to get the current weather information.</p>
+  <form action="/weathers" method="get">
+    <label for="location">Enter Location:</label>
+    <input type="text" placeholder="City, State" id="location" name="location" required style="border: 2px solid #000; padding: 5px;">>
+    <button type="submit" style="border: 3px solid #000; padding: 5px 10px;">Get Weather</button>
+  </form>
+</div>
+<div id="weather-data" style="margin-top: 20px; border: 2px dashed #000; padding: 10px;">
+  <% if weather_data %>
+  
+    <h2><% if cache_hit %> CACHED <% else %> Freshly Fetched <%end%>Weather Information for <%= weather_data["name"] %>, <%= weather_data["sys"]["country"] %></h2>
+    <p><strong>Temperature:</strong>
+      <%= (weather_data["main"]["temp"] - 273.15).round(2) %>°C
+    </p>
+    <p><strong>Feels Like:</strong>
+      <%= (weather_data["main"]["feels_like"] - 273.15).round(2) %>°C
+    </p>
+    <p><strong>Condition:</strong>
+      <%= weather_data["weather"][0]["main"] %> - <%= weather_data["weather"][0]["description"] %>
+    </p>
+    <p><strong>Humidity:</strong>
+      <%= weather_data["main"]["humidity"] %>%
+    </p>
+    <p><strong>Wind Speed:</strong>
+      <%= weather_data["wind"]["speed"] %> m/s
+    </p>
+    <p><strong>Pressure:</strong>
+      <%= weather_data["main"]["pressure"] %> hPa
+    </p>
+    <p><strong>Coordinates:</strong> Latitude <%= weather_data["coord"]["lat"] %>, Longitude <%= weather_data["coord"]["lon"] %>
+    </p>
+    <p><strong>Visibility:</strong>
+      <%= weather_data["visibility"] %> meters
+    </p>
+    <p><strong>Cloudiness:</strong>
+      <%= weather_data["clouds"]["all"] %>%
+    </p>
+    <p><strong>Sunrise:</strong>
+      <%= Time.at(weather_data["sys"]["sunrise"]).strftime("%H:%M:%S") %>
+    </p>
+    <p><strong>Sunset:</strong>
+      <%= Time.at(weather_data["sys"]["sunset"]).strftime("%H:%M:%S") %>
+    </p>
+    <p><strong>Timezone:</strong>
+      UTC <%= weather_data["timezone"] / 3600 %> hours
+    </p>
+  <% else %>
+    <p>No weather data available. Please enter a location.</p>
+  <% end %>
+</div>
