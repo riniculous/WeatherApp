@@ -356,7 +356,7 @@ GEM
     xpath (3.2.0)
       nokogiri (~> 1.8)
     zeitwerk (2.7.2)
-    zip-codes (0.3.6)
+    zip-codes (0.3.7)
 
 PLATFORMS
   aarch64-linux
